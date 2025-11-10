@@ -377,8 +377,8 @@ Code and data are freely available for academic and commercial use with attribut
 **DHAIE Project — Design Human AI Engineering & Enhancement**  
 All rights reserved under applicable international law.
 
-*Last updated: November 2025*  
-*Documentation version: 1.0*
+**Last updated:** 2025-10-10  
+**Version:** 2.0 (LLaMA correction + initial release)
 
 ---
 
