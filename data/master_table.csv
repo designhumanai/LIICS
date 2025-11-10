@@ -1,0 +1,5 @@
+Model,N_billions,D_tokens_trillions,L_layers,E_embedding,H_bits_per_token,V_validation_tokens,Source,Status
+GPT-3,175,0.30,96,12288,2.0,1000000,"Brown et al. NeurIPS 2020",Undertrained
+Chinchilla,70,1.40,80,8192,2.0,1000000,"Hoffmann et al. 2022",Compute-optimal
+PaLM,540,0.78,118,18432,2.0,1000000,"Chowdhery et al. 2022",Compute-optimal
+LLaMA-65B,65.2,1.40,80,8192,2.0,1000000,"Touvron et al. 2023 (corrected)",Compute-optimal
