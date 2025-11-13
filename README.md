@@ -160,7 +160,7 @@ $$D_{\max} = \frac{L \cdot E \cdot H \cdot V}{\Psi_{LLM} \cdot N}$$
 
 ### 1. `compute_psi_canonical.py`
 
-**Purpose:** Calculate Ψ_LLM for all models and reproduce Table 2 from manuscript.
+**Purpose:** Calculate Ψ_LLM empirical invariant for LIICS framework and reproduce manuscript results.
 
 **Usage:**
 ```bash
@@ -168,25 +168,28 @@ python scripts/compute_psi_canonical.py [OPTIONS]
 ```
 
 **Options:**
-```
---psi PSI_VALUE       Override canonical Ψ (default: 1.27e-11)
---H ENTROPY          Domain entropy bits/token (default: 2.0)
---V VAL_SIZE         Validation tokens (default: 1e6)
---output PATH        Save results CSV (default: results/psi_values.csv)
-```
+- `--H ENTROPY`       Domain entropy bits/token (default: 2.0)
+- `--V VAL_SIZE`      Validation tokens (default: 1e6) 
+- `--sensitivity`     Run H×V sensitivity analysis grid
+- `--output DIR`      Output directory (default: results/)
+- `--quiet`          Suppress detailed console output
 
-**Example:**
+**Examples:**
 ```bash
 # Standard calculation
 python scripts/compute_psi_canonical.py
 
-# Custom domain (code: H≈2.5)
-python scripts/compute_psi_canonical.py --H 2.5 --V 1.3e6
+# Custom parameters with sensitivity analysis
+python scripts/compute_psi_canonical.py --H 2.5 --V 1.3e6 --sensitivity
+
+# Quiet mode with custom output
+python scripts/compute_psi_canonical.py --output my_results/ --quiet
 ```
 
 **Output files:**
-- `results/psi_values.csv` — Per-model Ψ values with uncertainties
-- Console: Statistical summary (mean, σ, 95% CI)
+- `results/psi_values.csv` — Main results table (all models)
+- `results/sensitivity_grid.csv` — H×V parameter sweep results (with `--sensitivity`)
+- **Console:** Detailed statistical summary (mean, σ, 95% CI, CV%)
 
 ---
 
@@ -200,7 +203,7 @@ python scripts/sensitivity_analysis.py [OPTIONS]
 ```
 
 **Options:**
-```
+```bash
 --H_min, --H_max     Entropy range (default: 1.8-2.2)
 --V_min, --V_max     Validation range (default: 0.7e6-1.3e6)
 --grid_points        Grid resolution (default: 3×3)
