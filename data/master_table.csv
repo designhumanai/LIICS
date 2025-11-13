@@ -1,5 +1,5 @@
-Model,N_billions,D_tokens_trillions,L_layers,E_embedding,H_bits_per_token,V_validation_tokens,Source,Status
-GPT-3,175,0.30,96,12288,2.0,1000000,"Brown et al. NeurIPS 2020",Undertrained
-Chinchilla,70,1.40,80,8192,2.0,1000000,"Hoffmann et al. 2022",Compute-optimal
-PaLM,540,0.78,118,18432,2.0,1000000,"Chowdhery et al. 2022",Compute-optimal
-LLaMA-65B,65.2,1.40,80,8192,2.0,1000000,"Touvron et al. 2023 (corrected)",Compute-optimal
+Model,N,D,L,E,H,V,Psi_LLM,Source,Status
+GPT-3,175e9,0.30e12,96,12288,2.0,1e6,4.50e-11,"Brown et al., 2020",undertrained
+Chinchilla,70e9,1.40e12,80,8192,2.0,1e6,1.34e-11,"Hoffmann et al., 2022",compute-optimal
+PaLM,540e9,0.78e12,118,18432,2.0,1e6,1.03e-11,"Chowdhery et al., 2022",compute-optimal
+LLaMA-65B,65.2e9,1.40e12,80,8192,2.0,1e6,1.44e-11,"Touvron et al., 2023",compute-optimal
