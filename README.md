@@ -110,8 +110,11 @@ Canonical architectural parameters extracted from official publications:
 | `E_embedding` | Width | - | Architecture spec |
 | `H_bits_per_token` | Domain entropy | bits/token | Normalized (2.0±0.2) |
 | `V_validation_tokens` | Validation corpus | tokens | Normalized (1.0±0.3)×10⁶ |
+| `Psi_LLM` | Empirical efficiency invariant | ×10⁻¹¹ | Calculated: (L·E·H·V)/(N·D) |
 | `Source` | Citation | - | BibTeX entry |
 | `Status` | Training regime | - | Compute-optimal / Undertrained |
+
+**Note:** CSV column names use short forms (N, D, L, E, H, V, Psi_LLM). The table above maps them to descriptive names.
 
 **Data provenance:**
 - **GPT-3:** Brown et al., *NeurIPS 2020* ([arXiv:2005.14165](https://arxiv.org/abs/2005.14165))
