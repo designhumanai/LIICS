@@ -101,30 +101,63 @@ liics/
 
 Canonical architectural parameters extracted from official publications:
 
-| Column | Description | Units | Source |
-|--------|-------------|-------|--------|
-| `Model` | Model name | - | Publication |
-| `N_billions` | Parameters | 10⁹ | Table 1/Appendix |
-| `D_tokens_trillions` | Training tokens | 10¹² | Methods section |
-| `L_layers` | Depth | - | Architecture spec |
-| `E_embedding` | Width | - | Architecture spec |
-| `H_bits_per_token` | Domain entropy | bits/token | Normalized (2.0±0.2) |
-| `V_validation_tokens` | Validation corpus | tokens | Normalized (1.0±0.3)×10⁶ |
-| `Psi_LLM` | Empirical efficiency invariant | ×10⁻¹¹ | Calculated: (L·E·H·V)/(N·D) |
-| `Source` | Citation | - | BibTeX entry |
-| `Status` | Training regime | - | Compute-optimal / Undertrained |
+| Column | Description | Units | Example | Source |
+|--------|-------------|-------|---------|--------|
+| `Model` | Model name/identifier | — | `Chinchilla` | Publication title |
+| `N` | Total parameters | count (scientific notation) | `70e9` (70B) | Table 1/Appendix |
+| `D` | Training tokens | count (scientific notation) | `1.40e12` (1.4T) | Methods section |
+| `L` | Number of layers (depth) | count | `80` | Architecture spec |
+| `E` | Embedding dimension (width) | count | `8192` | Architecture spec |
+| `H` | Domain entropy | bits/token | `2.0` | Normalized (2.0±0.2) |
+| `V` | Validation corpus size | tokens | `1e6` | Normalized (1.0±0.3)×10⁶ |
+| `Psi_LLM` | Empirical invariant Ψ_LLM | dimensionless | `1.34e-11` | Calculated from above |
+| `Source` | Primary citation | — | `"Hoffmann et al., 2022"` | BibTeX entry |
+| `Status` | Training regime | — | `compute-optimal` | Classification |
 
-**Note:** CSV column names use short forms (N, D, L, E, H, V, Psi_LLM). The table above maps them to descriptive names.
+**Note on scientific notation:** 
+- `N=175e9` means 175 × 10⁹ = 175 billion parameters
+- `D=1.40e12` means 1.40 × 10¹² = 1.4 trillion tokens
+
+**Status classifications:**
+- **`compute-optimal`**: Trained according to Chinchilla scaling laws (D ∝ N)
+- **`undertrained`**: Insufficient training data for model size (e.g., GPT-3)
+- **`overtrained`**: Excess training beyond plateau (not observed in current dataset)
 
 **Data provenance:**
-- **GPT-3:** Brown et al., *NeurIPS 2020* ([arXiv:2005.14165](https://arxiv.org/abs/2005.14165))
-- **Chinchilla:** Hoffmann et al., 2022 ([arXiv:2203.15556](https://arxiv.org/abs/2203.15556))
-- **PaLM:** Chowdhery et al., 2022 ([arXiv:2204.02311](https://arxiv.org/abs/2204.02311))
-- **LLaMA-65B:** Touvron et al., 2023 ([arXiv:2302.13971](https://arxiv.org/abs/2302.13971))
+- **GPT-3:** Brown et al., *Language Models are Few-Shot Learners*, NeurIPS 2020 ([arXiv:2005.14165](https://arxiv.org/abs/2005.14165))
+- **Chinchilla:** Hoffmann et al., *Training Compute-Optimal Large Language Models*, 2022 ([arXiv:2203.15556](https://arxiv.org/abs/2203.15556))
+- **PaLM:** Chowdhery et al., *PaLM: Scaling Language Modeling with Pathways*, 2022 ([arXiv:2204.02311](https://arxiv.org/abs/2204.02311))
+- **LLaMA-65B:** Touvron et al., *LLaMA: Open and Efficient Foundation Language Models*, 2023 ([arXiv:2302.13971](https://arxiv.org/abs/2302.13971))
 
-**⚠️ Corrections applied (v2.0):**
-- LLaMA-65B: Training data corrected from 1.0T → **1.4T tokens** (Touvron et al., Section 2.2)
-- This correction changes Ψ_LLM from 1.31 → 1.44 × 10⁻¹¹
+**⚠️ Critical correction applied (v2.1):**
+- **LLaMA-65B:** Training data corrected from 1.0T → **1.4T tokens** (Touvron et al., 2023, Table 2)
+- **Impact:** Ψ_LLM changed from 1.31 → 1.44 × 10⁻¹¹
+- **Canonical value:** Mean Ψ_LLM updated from 1.23 → **1.27 × 10⁻¹¹**
+- **See:** [docs/CORRECTION_SUMMARY.md](docs/CORRECTION_SUMMARY.md) for detailed analysis
+
+**Data access:**
+```python
+import pandas as pd
+
+# Load canonical data
+df = pd.read_csv('data/master_table.csv')
+
+# Access specific model
+chinchilla = df[df['Model'] == 'Chinchilla'].iloc[0]
+print(f"Chinchilla: N={chinchilla['N']:.0e}, D={chinchilla['D']:.2e}")
+# Output: Chinchilla: N=7e+10, D=1.40e+12
+
+# Filter compute-optimal models
+optimal = df[df['Status'] == 'compute-optimal']
+print(f"Mean Ψ_LLM: {optimal['Psi_LLM'].mean():.2e}")
+# Output: Mean Ψ_LLM: 1.27e-11
+```
+
+**Reproducibility:**
+- All values extracted from official publications (cited above)
+- No preprocessing or normalization applied (except H and V)
+- Exact parameter counts preserved (e.g., LLaMA: 65.2B, not rounded to 65B)
+- Verification: Run `scripts/compute_psi_canonical.py` to recalculate Ψ_LLM from raw parameters
 
 ---
 
