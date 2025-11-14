@@ -1,0 +1,61 @@
+Model,N_billions,D_trillions,L_layers,E_embedding,LE_product,Psi_LLM_x1e11,k_x1e16,c_architecture,Status,Notes
+GPT-3,175,0.30,96,12288,11796480,4.50,3.810,12.07,Undertrained,Excluded from mean - undertrained relative to Chinchilla-optimal ratios
+Chinchilla,70,1.40,80,8192,655360,1.34,2.041,13.04,Compute-optimal,DeepMind Chinchilla scaling law reference model
+PaLM,540,0.78,118,18432,21749760,1.03,0.476,13.47,Compute-optimal,Google Pathways Language Model
+LLaMA-65B,65.2,1.40,80,8192,655360,1.44,2.190,12.14,Compute-optimal,Meta LLaMA - corrected to 1.4T tokens (Touvron et al. 2023)
+
+# METADATA
+# ========
+# Canonical Invariant: Psi_LLM = (1.27 ± 0.21) × 10⁻¹¹ (mean over compute-optimal models)
+# 95% Confidence Interval: [0.75, 1.79] × 10⁻¹¹
+# Coefficient of Variation: 16.5%
+# Sample Size: n=3 compute-optimal models (Chinchilla, PaLM, LLaMA-65B)
+# Domain Parameters: H = 2.0 bits/token, V = 1.0 × 10^6 tokens
+# Normalization Scale: M = H × V = 2.0 × 10^6 token-bits
+
+# COLUMN DEFINITIONS
+# ==================
+# Model: Model name/identifier
+# N_billions: Total parameters (billions)
+# D_trillions: Training tokens (trillions)
+# L_layers: Number of transformer layers (depth)
+# E_embedding: Embedding dimension (width)
+# LE_product: L × E (architectural processing capacity - effective information transformation depth)
+# Psi_LLM_x1e11: Empirical invariant Ψ_LLM in units of 10⁻¹¹ (dimensionless, multiply by 10⁻¹¹ for SI value)
+# k_x1e16: Architecture-specific efficiency coefficient k in units of 10⁻¹⁶ (multiply by 10⁻¹⁶ for SI value)
+# c_architecture: Parameter allocation coefficient c = N/(L·E²) (theoretical value ≈ 12-13 for standard Transformers)
+# Status: Training regime classification (Compute-optimal | Undertrained | Overtrained)
+# Notes: Additional context and data source information
+
+# CALCULATION FORMULAS
+# ====================
+# Psi_LLM = (L × E × H × V) / (N × D)  [units: dimensionless, reported as ×10⁻¹¹]
+# k = (H × V) / (N × D)  [units: dimensionless, reported as ×10⁻¹⁶]
+# c = N / (L × E²)  [units: dimensionless, ≈12-13 for dense Transformers]
+# Relationship: Psi_LLM = k × L × E  [architectural decomposition]
+# 
+# Physical Interpretation:
+# - Psi_LLM: Minimum computation (N×D) per unit understanding (L×E×H×V), normalized by architecture
+# - k: Information extraction efficiency per parameter-token (lower k = higher efficiency)
+# - c: Architectural efficiency factor (attention + feedforward parameter allocation)
+
+# DATA SOURCES
+# ============
+# GPT-3: Brown et al. (2020), NeurIPS, "Language Models are Few-Shot Learners"
+# Chinchilla: Hoffmann et al. (2022), arXiv:2203.15556
+# PaLM: Chowdhery et al. (2022), arXiv:2204.02311
+# LLaMA-65B: Touvron et al. (2023), arXiv:2302.13971 [CORRECTED: 1.0T → 1.4T]
+
+# VERSION HISTORY
+# ===============
+# v2.1 (2025-11-14): LLaMA-65B training data corrected to 1.4T tokens
+#                    Mean Psi_LLM: 1.23×10^-11 → 1.27×10^-11
+# v2.0 (2025-11-13): Initial release with 4 models
+# v1.0 (2025-11-12): Pilot analysis (GPT-3, Chinchilla only)
+
+# REPRODUCIBILITY
+# ===============
+# All values calculated using H=2.0, V=1e6
+# Python code: scripts/compute_psi_canonical.py
+# Tests: tests/test_calculations.py::TestPsiComputation
+# Repository: https://github.com/designhumanai/liics
