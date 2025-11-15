@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![arXiv](https://img.shields.io/badge/arXiv-2501.XXXXX-b31b1b.svg)](https://arxiv.org/abs/2501.XXXXX)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
-[![DOI](https://img.shields.io/badge/DOI-10.XXXX%2FXXXXXX-blue)](https://doi.org/10.XXXX/XXXXXX)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17610162-blue)](https://doi.org/10.5281/zenodo.17610162)
 
 **Repository for the manuscript:**  
 *"An Empirical Invariant for Transformer Scaling: Towards an Information Incompleteness Hypothesis"*
