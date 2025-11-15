@@ -779,7 +779,7 @@ Architectural parameters extracted from official publications by:
 
 ## 📝 Version History
 
-### v2.1 (Current) — November 14, 2025
+### v2.1 (Current) — November 15, 2025
 - ✅ **Critical correction:** LLaMA-65B training data 1.0T → 1.4T tokens
 - ✅ Recalculated canonical Ψ_LLM: 1.23 → **1.27 × 10⁻¹¹** (final value)
 - ✅ Fixed 95% CI consistency (main + supplementary manuscripts)
